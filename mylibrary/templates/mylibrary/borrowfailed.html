@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>借书失败</title>
+</head>
+<body>
+{% if bookuser %}
+	<label>用户名：</label>
+	<a href="">{{ bookuser.user }}</a>
+	<br>
+	<h1>借书失败</h1><br>
+	<a href="{% url 'mylibrary:index2' bookuser.id %}">重新借书</a>
+{% else %}
+	<h1>跑去登陆</h1>
+	<label><a href="{% url 'mylibrary:reach_login'%}">请登陆后借书</a></label>
+	<label><a href="{% url 'mylibrary:reach_register'%}">没有账号请注册</a></label>
+{% endif %}
+</body>
+</html>

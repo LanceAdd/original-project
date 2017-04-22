@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>借书记录</title>
+</head>
+<body>
+{% if bookuser %}
+	<label>用户名：</label>
+	<a href="">{{ bookuser.user }}</a>
+	<br>
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+			<th>借书时间</th>
+			<th>借书人</th>
+		</tr>
+		<tr>
+			{% for b in borrowhistory %}
+				<td>{{ b.bookname}}</td>
+				<td>{{ b.bookauthor }}</td>
+				<td>{{ b.time|date:"Y-m-d H:i:s" }}</td>
+				<td>{{ b.bookuser }}</td>
+			{% endfor %}
+		</tr>
+	</table>
+	<hr>
+	<hr>
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+			<th>还书时间</th>
+			<th>还书人</th>
+		</tr>
+		<tr>
+			{% for a in backhistory %}
+					<td>{{ a.bookname}}</td>
+					<td>{{ a.bookauthor }}</td>
+					<td>{{ a.time|date:"Y-m-d H:i:s" }}</td>
+					<td>{{ a.bookuser }}</td>
+			{% endfor%}
+		</tr>
+	</table>
+	<a href="{% url 'mylibrary:index2' bookuser.id %}">返回书单</a>
+{% else %}
+	<h1>跑去登陆</h1>
+	<label><a href="{% url 'mylibrary:reach_login'%}">请登陆后借书</a></label>
+	<label><a href="{% url 'mylibrary:reach_register'%}">没有账号请注册</a></label>
+{% endif %}
+</body>
+</html>

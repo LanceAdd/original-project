@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>借阅书籍</title>
+</head>
+<body>
+{% if bookuser %}
+	<label>用户名：</label>
+	<a href="">{{ bookuser.user}}</a>
+	<br>
+	<form action="{% url 'mylibrary:borrow_confirm'%}" method="post">
+		{% csrf_token %}
+			<label>书名：
+				<input type="text" name="bookname" value="{{book.bookname}}" />
+			</label>
+			<br>
+			<label>作者：
+				<input type="text" name="bookauthor" value="{{book.bookauthor}}" />
+			</label>
+			<label>
+				<input type="hidden" name="user" value="{{bookuser.id}}">
+			</label>
+			<br>
+			<input type="submit" value="借书">
+	</form>
+{% else %}
+	<h1>跑去登陆</h1>
+	<label><a href="{% url 'mylibrary:reach_login'%}">请登陆后借书</a></label>
+	<label><a href="{% url 'mylibrary:reach_register'%}">没有账号请注册</a></label>
+{% endif %}
+</body>
+</html>

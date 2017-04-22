@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>欢迎注册</title>
+</head>
+<body>
+<form action="{% url 'mylibrary:register'%}" method="post">
+	{% csrf_token %}
+		<label>用户名：
+			<input type="text" name="user">
+		</label>
+		<br>
+		<label>密码：
+			<input type="password" name="password">
+		</label>
+		<br>
+		<input type="submit" value="注册">
+</form>
+<hr>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>主页</title>
+</head>
+<body>
+{% if bookuser %}
+	<label>用户名：</label>
+	<a href="">{{ bookuser.user }}</a>
+	<br>
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+		</tr>
+		{% for bo in book %}
+			<tr>
+				<td><a href="{% url 'mylibrary:show' bo.id bookuser.id %}">{{ bo.bookname }}</a></td>
+				<td><a href="{% url 'mylibrary:show' bo.id bookuser.id %}">{{ bo.bookauthor }}</a></td>
+				<td><a href="{% url 'mylibrary:borrow_book' bo.id bookuser.id %}">借书</a></td>
+				<td><a href="{% url 'mylibrary:back_book' bo.id bookuser.id %}">还书</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	<form action="{% url 'mylibrary:namesearch'%}" method="post"/>
+		{% csrf_token %}
+			<label>按书名查找：
+				<input type="text" name="bookname"/>
+			</label>
+			<label>
+				<input type="hidden" name="userid" value="{{bookuser.id}}"/>
+			</label>
+			<input type="submit" value="查找"/>
+	</form>
+	<hr>
+	<form action="{% url 'mylibrary:authorsearch'%}" method="post"/>
+		{% csrf_token %}
+			<label>按作者查找：
+				<input type="text" name="bookauthor"/>
+			</label>
+			<label>
+				<input type="hidden" name="userid" value="{{bookuser.id}}"/>
+			</label>
+			<input type="submit" value="查找"/>
+	</form>
+	<h6>欢迎使用</h6>
+	<h6><a href="{% url 'mylibrary:showhistory' bookuser.id %}">借书记录</a></h6>
+{% else %}
+	<a href="{% url 'mylibrary:reach_login'%}">请登录</a><br>
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+		</tr>
+		{% for bo in book %}
+			<tr>
+				<td><a href="{% url 'mylibrary:show' bo.id %}">{{ bo.bookname }}</a></td>
+				<td><a href="{% url 'mylibrary:show' bo.id %}">{{ bo.bookauthor }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	<hr>
+<!--<form action="{% url 'mylibrary:namesearch'%}" method="post"/>
+		{% csrf_token %}
+			<label>按书名查找：
+				<input type="text" name="bookname"/>
+			</label>
+			<input type="submit" value="查找"/>
+	</form>
+	<hr>
+	<form action="{% url 'mylibrary:authorsearch'%}" method="post"/>
+		{% csrf_token %}
+			<label>按作者查找：
+				<input type="text" name="bookauthor"/>
+			</label>
+			<input type="submit" value="查找"/>
+	</form>-->
+	<label><a href="{% url 'mylibrary:reach_login'%}">请登陆后借书</a></label>
+	<label><a href="{% url 'mylibrary:reach_register'%}">没有账号请注册</a></label>
+{% endif %}
+</body>
+</html>

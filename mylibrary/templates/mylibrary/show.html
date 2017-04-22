@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>书单列表</title>
+</head>
+<body>
+{% if bookuser %}
+	<label>用户名：</label>
+	<a href="">{{ bookuser.user }}</a>
+	<br>
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+			<th>借书</th>
+			<th>还书</th>
+		</tr>
+		<tr>
+			<td><a href="">{{book.bookname}}</a></td>
+			<td><a href="">{{book.bookauthor}}</a></td>
+			<td><a href="{% url 'mylibrary:borrow_book' book.id bookuser.id %}">借书</a></td>
+			<td><a href="{% url 'mylibrary:back_book' book.id bookuser.id %}">还书</a></td>
+		</tr>
+	</table>
+{% else %}
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+			<th>借书</th>
+			<th>还书</th>
+		</tr>
+		<tr>
+			<td><a href="">{{book.bookname}}</a></td>
+			<td><a href="">{{book.bookauthor}}</a></td>
+		</tr>
+	</table>
+{% endif %}
+</body>
+</html>

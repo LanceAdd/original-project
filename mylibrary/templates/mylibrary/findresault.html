@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>搜索结果</title>
+</head>
+<body>
+{% if bookuser %}
+	<label>用户名：</label>
+	<a href="">{{ bookuser.user }}</a>
+	<br>
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+			<th>借书</th>
+			<th>还书</th>
+		</tr>
+		<tr>
+			<td><a href="">{{book.bookname}}</a></td>
+			<td><a href="">{{book.bookauthor}}</a></td>
+			<td><a href="{% url 'mylibrary:borrow_book' book.id bookuser.id %}">借书</a></td>
+			<td><a href="{% url 'mylibrary:back_book' book.id bookuser.id %}">还书</a></td>
+		</tr>
+	</table>
+{% else %}
+	<h1>请登陆</h1>
+	<label><a href="{% url 'mylibrary:reach_login'%}">请登陆后借还书籍</a></label>
+	<label><a href="{% url 'mylibrary:reach_register'%}">没有账号请注册</a></label>
+{% endif %}
+</body>
+</html>
